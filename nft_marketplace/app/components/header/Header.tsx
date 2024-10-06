@@ -6,6 +6,10 @@ import { useContext } from "react"
 import Link from 'next/link'
 import Image from 'next/image'
 import Logo from "@/public/logo.png"
+// import { formatETH } from "@/utils/helpers"
+
+import { formatEther } from "ethers"; // Ajusta la ruta según tu configuración
+
 
 export const Header = () => {
 
@@ -13,8 +17,10 @@ export const Header = () => {
         isConnected,
         userAddress,
         signer,
+        userBalance,
         setIsConnected,
         setUserAddress,
+        setUserBalance,
         setSigner,
     } = useContext(WalletContext)
 
@@ -27,19 +33,24 @@ export const Header = () => {
             const provider = new BrowserProvider(window.ethereum)
             const signer = await provider.getSigner()
             setSigner(signer)
-            const accounts = await provider.send("eth_requestAccounts", [])
-            setIsConnected(true)
-            setUserAddress(accounts[0])
 
             const newtork = await provider.getNetwork()
             const chainIsNotSepolia = newtork.chainId.toString() != "11155111"
 
             if (chainIsNotSepolia) alert("Swtich to sepolia")
 
+            const accounts = await provider.send("eth_requestAccounts", [])
+
+            const balance = await provider.getBalance(accounts[0]);
+            setUserAddress(accounts[0])
+            setUserBalance(formatEther(balance))
+            setIsConnected(true)
+
         } catch (error) {
             console.log("conenction metamask err: ", error)
         }
     }
+
 
     const classes = {
         header: "py-5 shadow-md bg-[#003b46] px-8",
@@ -53,7 +64,6 @@ export const Header = () => {
         inactiveBtn: "bg-[#ff6f61] text-white cursor-pointer transition-all duration-300 hover:bg-[#e65c50]",
         activeBtn: "bg-green-500 text-white cursor-not-allowed opacity-80",
     };
-
 
     return (
         <header className={classes.header}>
@@ -82,15 +92,20 @@ export const Header = () => {
                         </li>
                     </ul>
                     <button
-                        className={`${classes.ctaBtn} ${isConnected ? classes.activeBtn : classes.inactiveBtn
-                            }`}
+                        className={`${classes.ctaBtn} ${isConnected ? classes.activeBtn : classes.inactiveBtn}`}
                         onClick={connectWallet}
                     >
                         {isConnected
                             ? `${userAddress?.slice(0, 8)}...`
                             : "Connect wallet"
                         }
+                        -
                     </button>
+                    {userBalance &&
+                        <span className={`${classes.ctaBtn} ${classes.activeBtn}`}>
+                            {userBalance} Eth
+                        </span>
+                    }
                 </nav>
             </div>
         </header>
