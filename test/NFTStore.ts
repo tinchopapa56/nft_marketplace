@@ -3,8 +3,7 @@ import { INftStoreContract } from "../interfaces/NFTStore";
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-let NFTSTORE: INftStoreContract; 
-// let NFTSTORE: any; //should get ethers BasaeContrtact Interface
+let NFTSTORE: INftStoreContract;
 let owner: string, addr1: string, addr2: string;
 
 beforeEach(async function () {
@@ -48,9 +47,8 @@ describe("Updating Listing Fee", function () {
     });
 
     it("Should only allow owner to update the listing fee percentage", async function () {
-        await expect(
-            NFTSTORE.connect(addr1).updateGlobalFeePercent(10)
-        ).to.be.revertedWith("Only owner can do this");
+        // eslint-disable-next-line
+        await expect(NFTSTORE.connect(addr1).updateGlobalFeePercent(10)).to.be.revertedWith("Only owner can do this");
     });
 });
 
