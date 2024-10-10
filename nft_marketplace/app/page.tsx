@@ -14,12 +14,11 @@ export default function Home() {
     description: "text-[24px] leading-[1.6] mb-16 mr-16",
     btns: "flex items-center gap-[32px] font-semibold",
     btn: "bg-white text-black text-[20px]  py-[16px] px-[32px] rounded-[9px] cursor-pointer transition-all duration-300 hover:bg-[#ddd]",
-    buyBtn: "bg-[#e65c50] text-white transition-all duration-300 hover:bg-[#e65c80]",
+    buyBtn: "bg-[#e65c60] text-white transition-all duration-300 hover:bg-[#e65c80]",
   };
 
   return (
     <div className={classes.container}>
-      <Header />
       <div className={classes.hero}>
         <div className={classes.textContainer}>
           <h1 className={classes.heading}>
@@ -46,7 +45,6 @@ export default function Home() {
           <Image src={HomeImg} alt="NFTs" />
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import {  WalletContextProvider } from "@/context/Wallet";
+import { Footer, Header } from "@/app/components";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +17,9 @@ export default function RootLayout({
     <html lang="en">
       <WalletContextProvider>
         <body>
+          <Header />
           {children}
+          <Footer />
         </body>
       </WalletContextProvider>
     </html>

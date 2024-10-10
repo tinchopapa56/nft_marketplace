@@ -9,6 +9,7 @@ import Logo from "@/public/logo.png"
 // import { formatETH } from "@/utils/helpers"
 
 import { formatEther } from "ethers"; // Ajusta la ruta según tu configuración
+import { round2Decimals, shortenAddress } from "@/utils/helpers"
 
 
 export const Header = () => {
@@ -76,13 +77,13 @@ export const Header = () => {
                 <nav className={classes.nav}>
                     <ul className={classes.navLinks}>
                         <li>
-                            <Link href="/marketplace" className={classes.link}>
+                            <Link href="/nft/market" className={classes.link}>
                                 MarketPlace
                             </Link>
                         </li>
                         <li>
-                            <Link href="/sellNFT" className={classes.link}>
-                                List
+                            <Link href="/nft/createListing" className={classes.link}>
+                                Create
                             </Link>
                         </li>
                         <li>
@@ -96,14 +97,13 @@ export const Header = () => {
                         onClick={connectWallet}
                     >
                         {isConnected
-                            ? `${userAddress?.slice(0, 8)}...`
+                            ? shortenAddress(userAddress)
                             : "Connect wallet"
                         }
-                        -
                     </button>
                     {userBalance &&
                         <span className={`${classes.ctaBtn} ${classes.activeBtn}`}>
-                            {userBalance} Eth
+                            {round2Decimals(userBalance)} Eth
                         </span>
                     }
                 </nav>

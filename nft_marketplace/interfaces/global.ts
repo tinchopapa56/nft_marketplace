@@ -1,4 +1,3 @@
-// global.d.ts
 declare global {
     interface IEthereum {
         isMetaMask?: boolean;

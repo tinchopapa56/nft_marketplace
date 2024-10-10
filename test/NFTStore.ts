@@ -1,4 +1,4 @@
-import { INftStoreContract } from "../interfaces/NFTStore";
+import { INftStoreContract } from "../nft_marketplace/interfaces/contracts/INFTStoreContract";
 
 const { expect } = require("chai");
 const { ethers } = require("hardhat");

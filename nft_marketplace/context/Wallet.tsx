@@ -1,5 +1,6 @@
 "use client";
 
+import { IJsonRpcSigner } from "@/interfaces/ethers/ethers";
 import React, { createContext, useState, ReactNode } from "react";
 
 interface IWalletContextType {
@@ -10,7 +11,7 @@ interface IWalletContextType {
     setIsConnected: (isConnected: boolean) => void;
     setUserAddress: (userAddress: string | null) => void;
     setUserBalance: (userBalance: bigint | string | number | null) => void;
-    setSigner: (signer: unknown) => void;
+    setSigner: (signer: IJsonRpcSigner) => void;
 }
 
 export const WalletContext = createContext<IWalletContextType>({
@@ -27,7 +28,7 @@ export const WalletContextProvider = ({ children }: { children: ReactNode }) => 
     const [isConnected, setIsConnected] = useState<boolean>(false);
     const [userAddress, setUserAddress] = useState<string | null>(null);
     const [userBalance, setUserBalance] = useState<bigint | string | number | null>(null);
-    const [signer, setSigner] = useState<unknown>(null);
+    const [signer, setSigner] = useState<IJsonRpcSigner | null>(null);
 
     return (
         <WalletContext.Provider
